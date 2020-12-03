@@ -104,7 +104,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     SimpleDateFormat sdf = new SimpleDateFormat("HH:mm yyyy-MM-dd");
                     address += sdf.format(new Date());
                 }
-                mMap.addMarker(new MarkerOptions().position(latLng).title("Your new memorable place"));
+                mMap.addMarker(new MarkerOptions().position(latLng).title(address));
+
+                MainActivity.places.add(address);
+                MainActivity.locations.add(latLng);
+                MainActivity.arrayAdapter.notifyDataSetChanged();
+
+                Toast.makeText(MapsActivity.this, "Location saved!",Toast.LENGTH_SHORT).show();
+
+
             }
         });
         Intent intent = getIntent();
@@ -132,6 +140,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION},1);
             }
 
+        }else{
+            Location placeLocation = new Location(LocationManager.GPS_PROVIDER);
+            placeLocation.setLatitude(MainActivity.locations.get(intent.getIntExtra("placeNumber",0)).latitude);
+            placeLocation.setLongitude(MainActivity.locations.get(intent.getIntExtra("placeNumber",0)).longitude);
+            centerMapOnLocation(placeLocation,MainActivity.places.get(intent.getIntExtra("placeNumber",0)));
         }
 //
 //        // Add a marker in Sydney and move the camera
