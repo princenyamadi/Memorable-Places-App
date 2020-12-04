@@ -113,7 +113,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 MainActivity.arrayAdapter.notifyDataSetChanged();
 
 
-                SharedPreferences sharedPreferences = MapsActivity.this.getSharedPreferences("package tech.peny.memorableplaces", Context.MODE_PRIVATE);
+                SharedPreferences sharedPreferences = MapsActivity.this.getSharedPreferences("tech.peny.memorableplaces", Context.MODE_PRIVATE);
                 try {
 
                     ArrayList<String> latitudes = new ArrayList<>();
